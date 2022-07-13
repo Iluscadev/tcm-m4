@@ -5,7 +5,22 @@
   "repository": "git@github.com:Iluscadev/tcm-m4.git",
   "author": "Helashow <lucas.bnlsp2013@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev src/app.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
+  },
   "dependencies": {
-    "typescript": "^4.7.4"
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.7",
+    "typescript": "^4.7.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/uuid": "^8.3.4",
+    "ts-node-dev": "^2.0.0"
   }
 }
