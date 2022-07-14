@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=db
+      - DB_PASSWORD="password"
+      - DB=gym_management_system
+      - DB_USER="user"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+  
+  db:
+    container_name: db
+    image: postgres:14
+    ports:
+      - 5431:5432
+    environment:
+      - POSTGRES_USER="user"
+      - POSTGRES_PASSWORD="password"
+      - POSTGRES_DB=gym_management_system
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d gym_management_system"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+    volumes:
+      - postgres_gym_management_system:/var/lib/postgresql/data
+
+volumes:
+  postgres_gym_management_system: 
+    driver: local
