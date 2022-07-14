@@ -8,9 +8,9 @@ export const AppDataSource = new DataSource({
     host: "localhost",
     port: 5432,
 
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
 
     synchronize: false,
     logging: true,
