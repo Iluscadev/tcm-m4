@@ -8,3 +8,8 @@ export interface IData{
     created_At: Date
     updated_At: Date
 }
+
+export interface IUserLogin {
+    email: string,
+    password: string
+}
