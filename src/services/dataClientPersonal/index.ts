@@ -1,5 +1,6 @@
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
 import  AppDataSource  from "../../data-source";
+import { hash } from "bcryptjs"
 import { DataClientPersonal } from "../../entities/dataClientPersonal.entities";
 
 
@@ -8,6 +9,8 @@ export const createDataService = async ({name, email, age, password, phone_numbe
     const userRepository = AppDataSource.getRepository(DataClientPersonal) 
 
     const users = await userRepository.find()
+
+    const hashedPassword = await hash(password, 10)
 
     //verificação de enaiul já cadastrado 
     const emailAlreadyExisty = users.find(user => user.email ===email) 
@@ -22,7 +25,7 @@ export const createDataService = async ({name, email, age, password, phone_numbe
     data.name = name
     data.email = email
     data.age = age
-    data.password = password
+    data.password = hashedPassword
     data.phone_number = phone_number
     data.adm = adm
     data.status = true
@@ -36,7 +39,7 @@ export const createDataService = async ({name, email, age, password, phone_numbe
     await userRepository.save(data)
     
     //Criando uma resposta com chanes especificas
-    const userResponse:IDataResponse = {
+    const dataResponse:IDataResponse = {
         id: data.id,
         name,
         email,
@@ -46,6 +49,6 @@ export const createDataService = async ({name, email, age, password, phone_numbe
         lock_number
     }
 
-    return userResponse;
+    return dataResponse;
 
 }
