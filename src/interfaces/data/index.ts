@@ -9,6 +9,11 @@ export interface IData{
     updated_At: Date
 }
 
+export interface IUserLogin {
+    email: string,
+    password: string
+}
+
 export interface IDataRequest {
     name: string
     email: string
