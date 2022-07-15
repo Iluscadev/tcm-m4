@@ -1,7 +1,31 @@
+
+import { DataClientPersonal } from "../../entities/dataClientPersonal.entities"
+import AppDataSource from "../../data-source"
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
-import  AppDataSource  from "../../data-source";
 import { hash } from "bcryptjs"
-import { DataClientPersonal } from "../../entities/dataClientPersonal.entities";
+
+export const ListAllService = async () => {
+
+    const userRepository = AppDataSource.getRepository(DataClientPersonal)
+
+    const users = userRepository.find()
+
+    return users
+}
+
+export const userListOneService = async (id: string) => {
+
+    const userRepository = AppDataSource.getRepository(DataClientPersonal) 
+
+    const user = await userRepository.findOneBy({id: id})
+
+    if(!user){
+        throw new Error("User not found")
+    }
+
+    return user;
+
+}
 
 
 export const createDataService = async ({name, email, age, password, phone_number, adm, plan, checkin, checkout, lock_number}: IDataRequest) => {
@@ -52,3 +76,4 @@ export const createDataService = async ({name, email, age, password, phone_numbe
     return dataResponse;
 
 }
+
