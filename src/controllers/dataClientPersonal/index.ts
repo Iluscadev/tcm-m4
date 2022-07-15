@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ListAllService, userListOneService } from "../../services/dataClientPersonal";
+import { createDataService, ListAllService, userListOneService } from "../../services/dataClientPersonal";
 
 
 
@@ -42,3 +42,38 @@ export const userListOneController = async (req: Request, res: Response) => {
         }
     }
 }
+
+export const createDataController = async (req: Request, res: Response) => {
+    try {
+      const {
+        name,
+        email,
+        age,
+        password,
+        phone_number,
+        adm,
+        plan,
+        checkin,
+        checkout,
+        lock_number,
+      } = req.body;
+      const newData = await createDataService({
+        name,
+        email,
+        age,
+        password,
+        phone_number,
+        adm,
+        plan,
+        checkin,
+        checkout,
+        lock_number,
+      });
+      return res.status(201).send(newData);
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(400).json({ message: err.message });
+      }
+    }
+  }
+  
