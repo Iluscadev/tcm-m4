@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { DataClientPersonal } from "./dataClientPersonal.entities";
+import { v4 as uuid } from "uuid";  
 
 @Entity("journals")
 class Journal {
@@ -15,11 +16,18 @@ class Journal {
   @Column()
   repetitions: number;
 
-  @ManyToMany(
+  /*@ManyToMany(
     () => DataClientPersonal,
     (data_client_personal) => data_client_personal.journals
-  )
-  data_client_personal: DataClientPersonal[];
+  )*/
+
+  //data_client_personal: DataClientPersonal[];
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
 
 export default Journal;

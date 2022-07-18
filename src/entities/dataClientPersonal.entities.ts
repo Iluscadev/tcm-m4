@@ -59,9 +59,10 @@ export class DataClientPersonal {
   @JoinTable()
   addresses: Address[];
 
-  @ManyToMany(() => Journal, (journal) => journal.data_client_personal)
-  @JoinTable()
-  journals: Journal[];
+  @ManyToMany(type => Journal, {
+    eager: true
+  })@JoinTable()
+  journal: Journal[]
 
   constructor() {
     if (!this.id) {
