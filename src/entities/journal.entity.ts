@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { DataClientPersonal } from "./dataClientPersonal.entities";
 
-@Entity("client_journal")
+@Entity("journals")
 class Journal {
   @PrimaryGeneratedColumn("uuid")
   id: string;
