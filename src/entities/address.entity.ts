@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { DataClientPersonal } from "./dataClientPersonal.entities";
 
-@Entity()
+@Entity("addresses")
 class Address {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -28,7 +28,7 @@ class Address {
     () => DataClientPersonal,
     (data_client_personal) => data_client_personal.addresses
   )
-  data_clients_personals: DataClientPersonal[];
+  data_client_personal: DataClientPersonal[];
 }
 
 export default Address;

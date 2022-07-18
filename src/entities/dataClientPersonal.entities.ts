@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 import Address from "./address.entity";
 import Journal from "./journal.entity";
 
-@Entity()
+@Entity("data_client_personal")
 export class DataClientPersonal {
   @PrimaryColumn("uuid")
   readonly id: string;
@@ -55,7 +55,7 @@ export class DataClientPersonal {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToMany(() => Address, (address) => address.data_clients_personals)
+  @ManyToMany(() => Address, (address) => address.data_client_personal)
   @JoinTable()
   addresses: Address[];
 
