@@ -15,8 +15,5 @@ app.use(avaliationRoutes)
 app.use(journalRoutes)
 app.use(addressRoutes)
 
-app.listen(3000, () =>{
-    console.log("Server running..")
-})
 
 export default app
