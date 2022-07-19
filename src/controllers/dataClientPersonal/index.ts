@@ -77,8 +77,18 @@ export const createDataController = async (req: Request, res: Response) => {
 export const updatePersonalController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, email, age, password, phone_number, adm, plan, checkin,
-      checkout, lock_number } = req.body;
+    const {
+      name,
+      email,
+      age,
+      password,
+      phone_number,
+      adm,
+      plan,
+      checkin,
+      checkout,
+      lock_number,
+    } = req.body;
     const personalUpdated = await updatePersonalService(id, {
       name,
       email,
@@ -89,19 +99,18 @@ export const updatePersonalController = async (req: Request, res: Response) => {
       plan,
       checkin,
       checkout,
-      lock_number
+      lock_number,
     });
     return res.status(201).json({
       message: "User updated",
       personal: personalUpdated,
     });
-  }catch (err) {
-    if(err instanceof Error) {
+  } catch (err) {
+    if (err instanceof Error) {
       return res.status(404).json({
         status: "error",
         message: err.message,
       });
     }
   }
-  
-}
+};
