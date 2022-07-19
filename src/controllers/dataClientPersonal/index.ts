@@ -120,7 +120,6 @@ export const updatePersonalController = async (req: Request, res: Response) => {
       cep,
       town,
       state,
-
     });
     return res.status(201).json({
       message: "User updated",
