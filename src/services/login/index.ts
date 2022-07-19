@@ -1,4 +1,4 @@
-import { DataClientPersonal } from "../../entities/dataClientPersonal.entities"
+import { DataClientPersonal } from "../../entities/dataClientPersonal.entity"
 import { IUserLogin } from "../../interfaces/data"
 import AppDataSource from "../../data-source"
 import { compare } from "bcryptjs"

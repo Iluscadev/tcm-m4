@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import Address from "./address.entity";
+import Avaliation from "./avaliation.entity";
 import Journal from "./journal.entity";
 
 @Entity("data_client_personal")
@@ -62,6 +63,10 @@ export class DataClientPersonal {
   @ManyToMany(() => Journal, (journal) => journal.data_client_personal)
   @JoinTable()
   journals: Journal[];
+
+  @ManyToMany(() => Avaliation, (avaliation) => avaliation.data_client_personal)
+  @JoinTable()
+  avaliations: Avaliation[];
 
   constructor() {
     if (!this.id) {

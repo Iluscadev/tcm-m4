@@ -1,5 +1,5 @@
 
-import { DataClientPersonal } from "../../entities/dataClientPersonal.entities"
+import { DataClientPersonal } from "../../entities/dataClientPersonal.entity"
 import AppDataSource from "../../data-source"
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
 import { hash } from "bcryptjs"
