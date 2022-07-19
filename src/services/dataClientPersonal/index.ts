@@ -1,7 +1,8 @@
 import { DataClientPersonal } from "../../entities/dataClientPersonal.entity";
 import AppDataSource from "../../data-source";
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
-import { hash } from "bcryptjs";
+import { hash } from "bcryptjs"
+import Address from "../../entities/address.entity";
 
 export const ListAllService = async () => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
@@ -23,23 +24,14 @@ export const userListOneService = async (id: string) => {
   return user;
 };
 
-export const createDataService = async ({
-  name,
-  email,
-  age,
-  password,
-  phone_number,
-  adm,
-  plan,
-  checkin,
-  checkout,
-  lock_number,
-}: IDataRequest) => {
+export const createDataService = async ({name, email, age, password, phone_number ,adm, plan, checkin, checkout, lock_number, street, number, cep ,town, state}: IDataRequest) => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
 
   const users = await userRepository.find();
 
   const hashedPassword = await hash(password, 10);
+
+  const addressRepository = AppDataSource.getRepository(Address)
 
   //verificação de enaiul já cadastrado
   const emailAlreadyExisty = users.find((user) => user.email === email);
@@ -49,34 +41,47 @@ export const createDataService = async ({
     throw new Error("Email already existy");
   }
 
+  const address = new Address()
+  address.street = street
+  address.number = number
+  address.cep = cep
+  address.town = town
+  address.state = state
+
+  addressRepository.create(address)
+  await addressRepository.save(address)
+  
   //usando os parametros que vamos receber lá do controller
-  const data = new DataClientPersonal();
-  data.name = name;
-  data.email = email;
-  data.age = age;
-  data.password = hashedPassword;
-  data.phone_number = phone_number;
-  data.adm = adm;
-  data.status = true;
-  data.plan = plan;
-  data.checkin = checkin;
-  data.checkout = checkout;
-  data.lock_number = lock_number;
+  const data = new DataClientPersonal()
+  data.name = name
+  data.email = email
+  data.age = age
+  data.password = hashedPassword
+  data.phone_number = phone_number
+  data.adm = adm
+  data.status = true
+  data.plan = plan
+  data.checkin = checkin
+  data.checkout = checkout
+  data.lock_number = lock_number
+  data.addresses = [address]
 
   //adionando ao DB
-  userRepository.create(data);
-  await userRepository.save(data);
-
+  userRepository.create(data)
+  await userRepository.save(data)
+  
   //Criando uma resposta com chanes especificas
-  const dataResponse: IDataResponse = {
-    id: data.id,
-    name,
-    email,
-    age,
-    plan,
-    status: data.status,
-    lock_number,
-  };
+  const dataResponse:IDataResponse = {
+      id: data.id,
+      name,
+      email,
+      age,
+      status: data.status,
+      street: address.street,
+      number: address.number,
+      town: address.town,
+      state: address.state
+  }
 
   return dataResponse;
 };
