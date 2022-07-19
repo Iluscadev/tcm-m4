@@ -56,6 +56,11 @@ export const createDataController = async (req: Request, res: Response) => {
         checkin,
         checkout,
         lock_number,
+        street,
+        number,
+        cep,
+        town,
+        state
       } = req.body;
       const newData = await createDataService({
         name,
@@ -68,6 +73,11 @@ export const createDataController = async (req: Request, res: Response) => {
         checkin,
         checkout,
         lock_number,
+        street,
+        number,
+        cep,
+        town,
+        state
       });
       return res.status(201).send(newData);
     } catch (err) {

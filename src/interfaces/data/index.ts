@@ -25,6 +25,12 @@ export interface IDataRequest {
     checkin: string
     checkout: string
     lock_number: number
+    street: string
+    number: string
+    cep: string
+    town: string
+    state: string
+
 }
 
 export interface IDataResponse {
@@ -32,7 +38,9 @@ export interface IDataResponse {
     name: string
     email: string
     age: string 
-    plan: string
     status: boolean
-    lock_number: number
+    street: string
+    number: string
+    town: string
+    state: string
 }
