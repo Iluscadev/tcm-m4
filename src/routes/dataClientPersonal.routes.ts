@@ -1,11 +1,16 @@
 import { Router } from "express";
-import { createDataController, ListAllController, userListOneController } from "../controllers/dataClientPersonal";
+import {
+  createDataController,
+  ListAllController,
+  userListOneController,
+} from "../controllers/dataClientPersonal";
 
-const clientsPersonalRoutes = Router()
+const clientsPersonalRoutes = Router();
 
-clientsPersonalRoutes.post('/register', createDataController);
+clientsPersonalRoutes.post("/register", createDataController);
 
-clientsPersonalRoutes.get('/users', ListAllController);
+clientsPersonalRoutes.get("/users", ListAllController);
 
-clientsPersonalRoutes.get('/clients/:id', userListOneController);
-export default clientsPersonalRoutes
+clientsPersonalRoutes.get("/clients/:id", userListOneController);
+
+export default clientsPersonalRoutes;

@@ -1,5 +1,5 @@
 import { Router } from "express";
 
-const journalRoutes = Router()
+const journalRoutes = Router();
 
-export default journalRoutes
+export default journalRoutes;
