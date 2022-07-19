@@ -3,7 +3,6 @@ import { DataClientPersonal } from "../../entities/dataClientPersonal.entities"
 import AppDataSource from "../../data-source"
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
 import { hash } from "bcryptjs"
-import Address from "../../entities/address.entity";
 
 export const ListAllService = async () => {
 
@@ -29,11 +28,9 @@ export const userListOneService = async (id: string) => {
 }
 
 
-export const createDataService = async ({name, email, age, password, phone_number ,adm, plan, checkin, checkout, lock_number, street, number, cep ,town, state}: IDataRequest) => {
+export const createDataService = async ({name, email, age, password, phone_number, adm, plan, checkin, checkout, lock_number}: IDataRequest) => {
 
-    const userRepository = AppDataSource.getRepository(DataClientPersonal)
-
-    const addressRepository = AppDataSource.getRepository(Address)
+    const userRepository = AppDataSource.getRepository(DataClientPersonal) 
 
     const users = await userRepository.find()
 
@@ -46,17 +43,6 @@ export const createDataService = async ({name, email, age, password, phone_numbe
     if( emailAlreadyExisty ) {
         throw new Error("Email already existy")
     }
-
-    const address = new Address()
-    address.street = street
-    address.number = number
-    address.cep = cep
-    address.town = town
-    address.state = state
-
-    addressRepository.create(address)
-    await addressRepository.save(address)
-
 
     //usando os parametros que vamos receber lá do controller
     const data = new DataClientPersonal()
@@ -71,7 +57,6 @@ export const createDataService = async ({name, email, age, password, phone_numbe
     data.checkin = checkin
     data.checkout = checkout
     data.lock_number = lock_number
-    data.addresses = [address]
 
     //adionando ao DB
     userRepository.create(data)
@@ -83,11 +68,9 @@ export const createDataService = async ({name, email, age, password, phone_numbe
         name,
         email,
         age,
+        plan,
         status: data.status,
-        street: address.street,
-        number: address.number,
-        town: address.town,
-        state: address.state
+        lock_number
     }
 
     return dataResponse;
