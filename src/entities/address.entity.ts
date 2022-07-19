@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { DataClientPersonal } from "./dataClientPersonal.entities";
+import { DataClientPersonal } from "./dataClientPersonal.entity";
 
 @Entity("addresses")
 class Address {
