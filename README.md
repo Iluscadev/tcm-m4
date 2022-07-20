@@ -62,11 +62,7 @@ Execute as migrations com o comando:
 yarn typeorm migration:run -d src/data-source.ts
 ```
 
-## 4. Autenticação
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-## 5. Endpoints
+## 4. Endpoints
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
@@ -74,6 +70,7 @@ yarn typeorm migration:run -d src/data-source.ts
 
 - [Client Or Personal]()
   - [POST - /register](#1.1-criação-de-usuário)
+  - [POST - /login]()
   - [GET - /users]()
   - [GET - /clients/:id]()
 
@@ -103,6 +100,7 @@ A criação do usuário é definida pelos campos abaixo, a diferença de um clie
 | Método | Rota         | Descrição                                     |
 | ------ | ------------ | --------------------------------------------- |
 | POST   | /register    | Criação de um cliente ou personal.            |
+| POST   | /login       | Gera o token de autenticação.                 |
 | GET    | /users       | Lista todos os usuários.                      |
 | GET    | /clients/:id | Lista um cliente usando seu ID como parâmetro |
 
@@ -114,8 +112,8 @@ A criação do usuário é definida pelos campos abaixo, a diferença de um clie
 
 ```
 POST /register
-Host: http://.com/v1
-Authorization: None
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
 Content-type: application/json
 ```
 
@@ -124,16 +122,20 @@ Content-type: application/json
 ```json
 {
   "name": "Alex",
-  "email": "alex@mail.com",
-  "age": "23",
+  "email": "alex@gmail.com",
+  "age": "28",
   "password": "1234",
-  "phone_number": "84-99232-0099",
-  "status": true,
+  "phone_number": "9819839189",
   "adm": true,
   "plan": "Family",
-  "checkin": "07:00",
-  "checkout": "17:00",
-  "lock_number": 13
+  "checkin": "3 horas",
+  "checkout": "2 horas",
+  "lock_number": 2,
+  "street": "Rua 007",
+  "cep": "59695-000",
+  "number": "25",
+  "town": "Floripa",
+  "state": "SC"
 }
 ```
 
@@ -145,17 +147,189 @@ Content-type: application/json
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "id": "78592cd4-86f9-4a0d-80f6-616a0b8ef6f1",
   "name": "Alex",
-  "email": "alex@mail.com",
-  "age": "23",
-  "password": "1234",
-  "phone_number": "84-99232-0099",
+  "email": "alex@gmail.com",
+  "age": "28",
   "status": true,
-  "adm": true,
-  "plan": "Family",
-  "checkin": "07:00",
-  "checkout": "17:00",
-  "lock_number": 13
+  "street": "Rua 007",
+  "number": "25",
+  "town": "Floripa",
+  "state": "SC"
 }
 ```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+
+### 1.2. Autenticação
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+### `/login`
+
+### Exemplo de Request:
+
+```
+POST /login
+Host: http://localhost:3000
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "email": "alex@gmail.com",
+  "password": "1234"
+}
+```
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1NDM4MiwiZXhwIjoxNjU4MzU3OTgyfQ.ERXtzLfQ9KtDsMaqWrQczgonuYxGo9XT5a6bI0u2ZkU"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição             |
+| -------------- | --------------------- |
+| 403 Forbidden  | Wrong email/password. |
+| 404 Not Found  | Account not found.    |
+
+### 1.3. **Listando Usuários**
+
+### `/users`
+
+### Exemplo de Request:
+
+```
+GET /users
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+Para listar todos os usuários, você deve estar logado e com permissão de administrador.
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "36489681-bd4b-47c5-ad11-eaaef2e80b6d",
+    "name": "Alex",
+    "email": "alex@gmail.com",
+    "age": "28",
+    "password": "$2a$10$9PPZtwZf4kNoWaHVKuf0N.2QgU2HFfvtDDulrHsCGeuBUuK6T8KOi",
+    "phone_number": "9819839189",
+    "status": true,
+    "adm": true,
+    "plan": "Family",
+    "checkin": "3 horas",
+    "checkout": "2 horas",
+    "lock_number": 2,
+    "created_at": "2022-07-20T20:25:01.059Z",
+    "updated_at": "2022-07-20T20:25:01.059Z",
+    "avaliations": [],
+    "journals": [],
+    "addresses": [
+      {
+        "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+        "street": "Rua 007",
+        "number": "25",
+        "cep": "59695-000",
+        "complement": null,
+        "town": "Floripa",
+        "state": "SC"
+      }
+    ]
+  }
+]
+```
+
+### Possíveis Erros:
+
+| Código do Erro  | Descrição                         |
+| --------------- | --------------------------------- |
+| 401 Unathorized | Invalid token.                    |
+| 403 Forbidden   | Needs admin permission to access. |
+
+### 1.4. **Listando Usuários Especifico**
+
+### `/users/:id`
+
+### Exemplo de Request:
+
+```
+GET /users/36489681-bd4b-47c5-ad11-eaaef2e80b6d
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "36489681-bd4b-47c5-ad11-eaaef2e80b6d",
+    "name": "Alex",
+    "email": "alex@gmail.com",
+    "age": "28",
+    "password": "$2a$10$9PPZtwZf4kNoWaHVKuf0N.2QgU2HFfvtDDulrHsCGeuBUuK6T8KOi",
+    "phone_number": "9819839189",
+    "status": true,
+    "adm": true,
+    "plan": "Family",
+    "checkin": "3 horas",
+    "checkout": "2 horas",
+    "lock_number": 2,
+    "created_at": "2022-07-20T20:25:01.059Z",
+    "updated_at": "2022-07-20T20:25:01.059Z",
+    "addresses": [
+      {
+        "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+        "street": "Rua 007",
+        "number": "25",
+        "cep": "59695-000",
+        "complement": null,
+        "town": "Floripa",
+        "state": "SC"
+      }
+    ]
+  }
+]
+```
+
+### Possíveis Erros:
+
+| Código do Erro  | Descrição                         |
+| --------------- | --------------------------------- |
+| 401 Unathorized | Invalid token.                    |
+| 403 Forbidden   | Needs admin permission to access. |
