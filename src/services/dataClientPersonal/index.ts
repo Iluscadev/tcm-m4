@@ -161,3 +161,22 @@ export const updatePersonalService = async (
 
   return updatedPersonal;
 };
+
+export const softDeleteService = async (id: string) => {
+
+    const userRepository = AppDataSource.getRepository(DataClientPersonal)
+
+    const user = await userRepository.findOneBy({id: id})
+
+    if(!user){
+        throw new AppError("User not found", 404)
+    }
+
+    if(!user.status){
+        throw new AppError("Inactive user")
+    }
+
+    user.status = false
+    await userRepository.save(user)
+
+}

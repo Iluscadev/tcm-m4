@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createDataController,
   ListAllController,
+  softDeleteController,
   updatePersonalController,
   userListOneController,
 } from "../controllers/dataClientPersonal";
@@ -27,5 +28,7 @@ clientsPersonalRoutes.get(
 );
 
 clientsPersonalRoutes.patch("/:id", AuthMiddleware, updatePersonalController);
+
+clientsPersonalRoutes.delete("/clients/:id", softDeleteController);
 
 export default clientsPersonalRoutes;
