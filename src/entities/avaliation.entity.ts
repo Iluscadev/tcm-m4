@@ -51,6 +51,9 @@ class Avaliation {
   @Column()
   updated_at: Date
 
+  @Column({default: true})
+  status: boolean
+
   @ManyToMany(
     () => DataClientPersonal,
     (data_client_personal) => data_client_personal.avaliations
