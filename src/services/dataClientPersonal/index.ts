@@ -3,6 +3,7 @@ import AppDataSource from "../../data-source";
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
 import { hash } from "bcryptjs";
 import Address from "../../entities/address.entity";
+import { AppError } from "../../errors/AppError";
 
 export const ListAllService = async () => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
@@ -18,7 +19,7 @@ export const userListOneService = async (id: string) => {
   const user = await userRepository.findOneBy({ id: id });
 
   if (!user) {
-    throw new Error("User not found");
+    throw new AppError("User not found", 404);
   }
 
   return user;
@@ -54,7 +55,7 @@ export const createDataService = async ({
 
   //se o email for repetido forçamos um  erro
   if (emailAlreadyExisty) {
-    throw new Error("Email already existy");
+    throw new AppError("Email already existy");
   }
 
   const address = new Address();
@@ -111,7 +112,7 @@ export const updatePersonalService = async (
   const hashedPassword = await hash(password, 10);
 
   if (!user) {
-    throw new Error("User not found.");
+    throw new AppError("User not found.", 404);
   }
 
   if(!name){
