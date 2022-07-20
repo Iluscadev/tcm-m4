@@ -1,5 +1,5 @@
 import { Router } from "express";
 
-const addressRoutes = Router()
+const addressRoutes = Router();
 
-export default addressRoutes
+export default addressRoutes;

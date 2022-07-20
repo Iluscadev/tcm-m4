@@ -25,6 +25,12 @@ export interface IDataRequest {
     checkin: string
     checkout: string
     lock_number: number
+    street: string
+    number: string
+    cep: string
+    town: string
+    state: string
+
 }
 
 export interface IDataResponse {
@@ -32,7 +38,44 @@ export interface IDataResponse {
     name: string
     email: string
     age: string 
-    plan: string
     status: boolean
-    lock_number: number
+    street: string
+    number: string
+    town: string
+    state: string
+}
+
+export interface IJournal{
+    id: string
+    exercise: string
+    time: string
+    repetitions: number
+}
+
+export interface IJournalCreate{
+    exercise: string
+    time: string
+    repetitions: number
+}
+
+export interface IAvaliationCreate{
+    wheight: number
+    height: number
+    neck: string
+    waist: number
+    bust: number
+    hip: number
+    arm_right: number
+    arm_left: number
+    leg_right: number
+    leg_left: number
+    cardio_freq: number
+    circumference: number
+    diameter: number
+}
+
+export interface IAvaliation extends IAvaliationCreate{
+    id: string
+    created_at: Date
+    updated_at: Date
 }
