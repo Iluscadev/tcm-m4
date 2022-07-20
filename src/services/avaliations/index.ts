@@ -26,9 +26,9 @@ export const createAvaliationService = async (
 
   const dataRepository = AppDataSource.getRepository(DataClientPersonal);
 
-  const clientPersonal = await dataRepository.findOneBy({id: id});
+  const clientPersonal = await dataRepository.findOneBy({ id: id });
 
-  console.log(clientPersonal)
+  console.log(clientPersonal);
 
   if (!clientPersonal) {
     throw new AppError("Client or Personal not found", 404);
@@ -50,25 +50,72 @@ export const createAvaliationService = async (
     diameter,
     created_at: new Date(),
     updated_at: new Date(),
-    data_client_personal: [clientPersonal]
-  })
+    data_client_personal: [clientPersonal],
+  });
 
-  
-  const newAvaliation = await avaliationRepository.save(avaliation)
+  const newAvaliation = await avaliationRepository.save(avaliation);
 
-  console.log(newAvaliation)
+  console.log(newAvaliation);
 
-  return newAvaliation
+  return newAvaliation;
 };
 
-
 export const listAvaliationService = async () => {
-  const avaliationRepository = AppDataSource.getRepository(Avaliation)
+  const avaliationRepository = AppDataSource.getRepository(Avaliation);
   const avaliations = await avaliationRepository.find({
     relations: {
-      data_client_personal: true
-    }
-  })
-  
-  return avaliations
-}
+      data_client_personal: true,
+    },
+  });
+
+  return avaliations;
+};
+
+export const updateAvaliationService = async (
+  id: string,
+  {
+    wheight,
+    height,
+    neck,
+    waist,
+    bust,
+    hip,
+    arm_right,
+    arm_left,
+    leg_left,
+    leg_right,
+    cardio_freq,
+    circumference,
+    diameter,
+  }: IAvaliationCreate
+) => {
+  const avaliationRepository = AppDataSource.getRepository(Avaliation);
+  const avaliation = avaliationRepository.findOneBy({ id });
+
+  if (!avaliation) {
+    throw new AppError("Avaliation not found", 404);
+  }
+
+  const updatedAvaliation = avaliationRepository.create({
+    wheight,
+    height,
+    neck,
+    waist,
+    bust,
+    hip,
+    arm_right,
+    arm_left,
+    leg_left,
+    leg_right,
+    cardio_freq,
+    circumference,
+    diameter,
+    updated_at: new Date(),
+  });
+
+  await avaliationRepository.update(id, updatedAvaliation);
+  const update = avaliationRepository.findOneBy({ id });
+
+  return update;
+};
+
