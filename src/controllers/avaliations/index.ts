@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {createAvaliationService, listAvaliationService} from "../../services/avaliations";
+import {createAvaliationService, listAvaliationService, updateAvaliationService} from "../../services/avaliations";
 
 export const createAvaliationController = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -46,3 +46,45 @@ export const listAvaliationController = async (req: Request, res: Response) => {
   const avaliations = await listAvaliationService()
   return res.status(200).json(avaliations)
 }
+
+
+export const updateAvaliationController = async (req: Request, res: Response) => {
+  const {id} = req.params
+  const {
+    wheight,
+    height,
+    neck,
+    waist,
+    bust,
+    hip,
+    arm_right,
+    arm_left,
+    leg_left,
+    leg_right,
+    cardio_freq,
+    circumference,
+    diameter
+  } = req.body
+
+  const updatedAvaliation = await updateAvaliationService(id, {
+    wheight,
+    height,
+    neck,
+    waist,
+    bust,
+    hip,
+    arm_right,
+    arm_left,
+    leg_left,
+    leg_right,
+    cardio_freq,
+    circumference,
+    diameter
+  })
+
+  return res.status(200).json({
+    message: "Avaliation Updated",
+    updated_avaliation: updatedAvaliation
+  })
+}
+
