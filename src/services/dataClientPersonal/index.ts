@@ -5,6 +5,7 @@ import { hash } from "bcryptjs";
 import Address from "../../entities/address.entity";
 import { AppError } from "../../errors/AppError";
 
+
 export const ListAllService = async () => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
 
@@ -19,7 +20,7 @@ export const userListOneService = async (id: string) => {
   const user = await userRepository.findOneBy({ id: id });
 
   if (!user) {
-    throw new AppError("User not found", 404);
+    throw new Error("User not found");
   }
 
   return user;
@@ -55,7 +56,7 @@ export const createDataService = async ({
 
   //se o email for repetido forçamos um  erro
   if (emailAlreadyExisty) {
-    throw new AppError("Email already existy");
+    throw new Error("Email already existy");
   }
 
   const address = new Address();
@@ -105,17 +106,22 @@ export const createDataService = async ({
 
 export const updatePersonalService = async (
   id: string,
-  { name, email, age, password, phone_number }: IDataRequest
+  {
+    name,
+    email,
+    age,
+    password,
+    phone_number,
+    }: IDataRequest
 ) => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
   const user = await userRepository.findOne({ where: { id } });
-  const hashedPassword = await hash(password, 10);
 
   if (!user) {
-    throw new AppError("User not found.", 404);
+    throw new AppError("User not found.", 400);
   }
-
-  if(!name){
+  
+  if (!name) {
     name = user.name;
   }
 
@@ -127,14 +133,14 @@ export const updatePersonalService = async (
     age = user.age;
   }
 
-  if (!password) {
-    password = user.password;
+  if (password) {
+   password = await hash(password, 10);
   } else {
-    password = hashedPassword;
+    password = user.password;
   }
 
   if (!phone_number) {
-    phone_number = user.phone_number;
+   phone_number = user.phone_number;
   }
 
   const updatedPersonal = {
@@ -146,6 +152,7 @@ export const updatePersonalService = async (
     phone_number: phone_number,
     created_at: user.created_at,
     updated_at: new Date(),
+    
   };
 
   await userRepository.update(user!.id, updatedPersonal);
