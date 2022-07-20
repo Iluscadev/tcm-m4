@@ -5,7 +5,6 @@ import { hash } from "bcryptjs";
 import Address from "../../entities/address.entity";
 import { AppError } from "../../errors/AppError";
 
-
 export const ListAllService = async () => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
 
@@ -106,21 +105,15 @@ export const createDataService = async ({
 
 export const updatePersonalService = async (
   id: string,
-  {
-    name,
-    email,
-    age,
-    password,
-    phone_number,
-    }: IDataRequest
+  { name, email, age, password, phone_number }: IDataRequest
 ) => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
   const user = await userRepository.findOne({ where: { id } });
 
   if (!user) {
-    throw new AppError("User not found.", 400);
+    throw new AppError("User not found.", 404);
   }
-  
+
   if (!name) {
     name = user.name;
   }
@@ -134,13 +127,13 @@ export const updatePersonalService = async (
   }
 
   if (password) {
-   password = await hash(password, 10);
+    password = await hash(password, 10);
   } else {
     password = user.password;
   }
 
   if (!phone_number) {
-   phone_number = user.phone_number;
+    phone_number = user.phone_number;
   }
 
   const updatedPersonal = {
@@ -152,7 +145,6 @@ export const updatePersonalService = async (
     phone_number: phone_number,
     created_at: user.created_at,
     updated_at: new Date(),
-    
   };
 
   await userRepository.update(user!.id, updatedPersonal);
