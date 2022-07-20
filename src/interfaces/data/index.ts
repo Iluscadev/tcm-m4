@@ -57,3 +57,25 @@ export interface IJournalCreate{
     time: string
     repetitions: number
 }
+
+export interface IAvaliationCreate{
+    wheight: number
+    height: number
+    neck: string
+    waist: number
+    bust: number
+    hip: number
+    arm_right: number
+    arm_left: number
+    leg_right: number
+    leg_left: number
+    cardio_freq: number
+    circumference: number
+    diameter: number
+}
+
+export interface IAvaliation extends IAvaliationCreate{
+    id: string
+    created_at: Date
+    updated_at: Date
+}

@@ -14,7 +14,7 @@ const app = express()
 app.use(express.json())
 
 app.use(clientsPersonalRoutes)
-app.use(avaliationRoutes)
+app.use("/avaliations", avaliationRoutes)
 app.use(journalRoutes)
 app.use(addressRoutes)
 app.use("/login", loginRoutes)
