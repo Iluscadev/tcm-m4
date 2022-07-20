@@ -25,11 +25,6 @@ export interface IDataRequest {
     checkin: string
     checkout: string
     lock_number: number
-    street: string
-    number: string
-    cep: string
-    town: string
-    state: string
 
 }
 
@@ -39,10 +34,6 @@ export interface IDataResponse {
     email: string
     age: string 
     status: boolean
-    street: string
-    number: string
-    town: string
-    state: string
 }
 
 export interface IJournal{
@@ -78,4 +69,13 @@ export interface IAvaliation extends IAvaliationCreate{
     id: string
     created_at: Date
     updated_at: Date
+}
+
+export interface ICreateAddress {
+    street: string
+    number: string
+    cep: string
+    complement: string
+    town: string
+    state: string
 }

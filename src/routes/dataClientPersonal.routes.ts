@@ -14,21 +14,19 @@ const clientsPersonalRoutes = Router();
 clientsPersonalRoutes.post("/register", createDataController);
 
 clientsPersonalRoutes.get(
-  "/users",
+  "/list",
   AuthMiddleware,
-  verifyUserIsAdmMiddleware,
   ListAllController
 );
 
 clientsPersonalRoutes.get(
-  "/clients/:id",
+  "/list/:id",
   AuthMiddleware,
-  verifyUserIsAdmMiddleware,
   userListOneController
 );
 
-clientsPersonalRoutes.patch("/:id", AuthMiddleware, updatePersonalController);
+clientsPersonalRoutes.patch("/:id", AuthMiddleware, verifyUserIsAdmMiddleware, updatePersonalController);
 
-clientsPersonalRoutes.delete("/clients/:id", softDeleteController);
+clientsPersonalRoutes.delete("/:id", AuthMiddleware, verifyUserIsAdmMiddleware, softDeleteController);
 
 export default clientsPersonalRoutes;

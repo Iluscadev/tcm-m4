@@ -36,11 +36,6 @@ export const createDataController = async (req: Request, res: Response) => {
     checkin,
     checkout,
     lock_number,
-    street,
-    number,
-    cep,
-    town,
-    state,
   } = req.body;
   const newData = await createDataService({
     name,
@@ -53,11 +48,6 @@ export const createDataController = async (req: Request, res: Response) => {
     checkin,
     checkout,
     lock_number,
-    street,
-    number,
-    cep,
-    town,
-    state,
   });
   return res.status(201).send(newData);
 };
@@ -75,11 +65,6 @@ export const updatePersonalController = async (req: Request, res: Response) => {
     checkin,
     checkout,
     lock_number,
-    street,
-    number,
-    cep,
-    town,
-    state,
   } = req.body;
   const personalUpdated = await updatePersonalService(id, {
     name,
@@ -91,12 +76,7 @@ export const updatePersonalController = async (req: Request, res: Response) => {
     plan,
     checkin,
     checkout,
-    lock_number,
-    street,
-    number,
-    cep,
-    town,
-    state,
+    lock_number
   });
   return res.status(201).json({
     message: "User updated",

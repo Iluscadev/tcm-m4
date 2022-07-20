@@ -2,7 +2,6 @@ import { DataClientPersonal } from "../../entities/dataClientPersonal.entity";
 import AppDataSource from "../../data-source";
 import { IDataRequest, IDataResponse } from "../../interfaces/data";
 import { hash } from "bcryptjs";
-import Address from "../../entities/address.entity";
 import { AppError } from "../../errors/AppError";
 
 export const ListAllService = async () => {
@@ -11,7 +10,8 @@ export const ListAllService = async () => {
   const users = userRepository.find({
     relations: {
       avaliations: true,
-      journals: true
+      journals: true,
+      addresses: true
     }
   });
 
@@ -21,7 +21,16 @@ export const ListAllService = async () => {
 export const userListOneService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
 
-  const user = await userRepository.findOneBy({ id: id });
+  const user = await userRepository.findOne({ 
+    relations: {
+      avaliations: true,
+      journals: true,
+      addresses: true
+    }, 
+    where: {
+      id: id
+    } 
+  });
 
   if (!user) {
     throw new AppError("User not found", 404);
@@ -41,19 +50,12 @@ export const createDataService = async ({
   checkin,
   checkout,
   lock_number,
-  street,
-  number,
-  cep,
-  town,
-  state,
 }: IDataRequest) => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
 
   const users = await userRepository.find();
 
   const hashedPassword = await hash(password, 10);
-
-  const addressRepository = AppDataSource.getRepository(Address);
 
   //verificação de enaiul já cadastrado
   const emailAlreadyExisty = users.find((user) => user.email === email);
@@ -62,16 +64,6 @@ export const createDataService = async ({
   if (emailAlreadyExisty) {
     throw new AppError("Email already existy");
   }
-
-  const address = new Address();
-  address.street = street;
-  address.number = number;
-  address.cep = cep;
-  address.town = town;
-  address.state = state;
-
-  addressRepository.create(address);
-  await addressRepository.save(address);
 
   //usando os parametros que vamos receber lá do controller
   const data = new DataClientPersonal();
@@ -86,8 +78,6 @@ export const createDataService = async ({
   data.checkin = checkin;
   data.checkout = checkout;
   data.lock_number = lock_number;
-  data.addresses = [address];
-  data.avaliations = []
 
   //adionando ao DB
   userRepository.create(data);
@@ -99,11 +89,7 @@ export const createDataService = async ({
     name,
     email,
     age,
-    status: data.status,
-    street: address.street,
-    number: address.number,
-    town: address.town,
-    state: address.state,
+    status: data.status
   };
 
   return dataResponse;

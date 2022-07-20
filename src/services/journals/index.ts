@@ -77,3 +77,18 @@ export const journalUpdateService = async(id:string,{exercise, time, repetitions
     
     return journalUpdate
 }
+
+
+export const journalListOneService = async (id: string) => {
+    const journalRepository = AppDataSource.getRepository(Journal);
+    const journal = await journalRepository.findOne({
+      relations: { data_client_personal: true },
+      where: { id: id },
+    });
+  
+    if (!journal) {
+      throw new AppError("Journal not found", 404);
+    }
+  
+    return journal;
+}
