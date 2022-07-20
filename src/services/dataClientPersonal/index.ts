@@ -111,24 +111,15 @@ export const createDataService = async ({
 
 export const updatePersonalService = async (
   id: string,
-  {
-    name,
-    email,
-    age,
-    password,
-    phone_number,
-   
-    
-    }: IDataRequest
+  { name, email, age, password, phone_number }: IDataRequest
 ) => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
   const user = await userRepository.findOne({ where: { id } });
-  const hashedPassword = await hash(password, 10);
+
   if (!user) {
     throw new AppError("User not found.", 404);
   }
-  console.log(user.name)
-  
+
   if (!name) {
     name = user.name;
   }
@@ -141,10 +132,10 @@ export const updatePersonalService = async (
     age = user.age;
   }
 
-  if (!password) {
-    password = user.password;
+  if (password) {
+    password = await hash(password, 10);
   } else {
-    password = hashedPassword;
+    password = user.password;
   }
 
   if (!phone_number) {
@@ -160,7 +151,6 @@ export const updatePersonalService = async (
     phone_number: phone_number,
     created_at: user.created_at,
     updated_at: new Date(),
-    
   };
 
   await userRepository.update(user!.id, updatedPersonal);
