@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   createDataService,
   ListAllService,
+  softDeleteService,
   updatePersonalService,
   userListOneService,
 } from "../../services/dataClientPersonal";
@@ -102,3 +103,12 @@ export const updatePersonalController = async (req: Request, res: Response) => {
     personal: personalUpdated,
   });
 };
+
+
+export const softDeleteController = async (req: Request, res: Response) => {
+
+  const id = req.params.id
+  await softDeleteService(id)
+  return res.status(204).json({message: "Data Deleted"})
+
+}
