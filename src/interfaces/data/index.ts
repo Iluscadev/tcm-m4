@@ -44,3 +44,16 @@ export interface IDataResponse {
     town: string
     state: string
 }
+
+export interface IJournal{
+    id: string
+    exercise: string
+    time: string
+    repetitions: number
+}
+
+export interface IJournalCreate{
+    exercise: string
+    time: string
+    repetitions: number
+}
