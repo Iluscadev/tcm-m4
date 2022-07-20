@@ -90,7 +90,7 @@ export const updateAvaliationService = async (
   }: IAvaliationCreate
 ) => {
   const avaliationRepository = AppDataSource.getRepository(Avaliation);
-  const avaliation = avaliationRepository.findOneBy({ id });
+  const avaliation = await avaliationRepository.findOneBy({ id });
 
   if (!avaliation) {
     throw new AppError("Avaliation not found", 404);
@@ -114,8 +114,22 @@ export const updateAvaliationService = async (
   });
 
   await avaliationRepository.update(id, updatedAvaliation);
-  const update = avaliationRepository.findOneBy({ id });
+  const update = await avaliationRepository.findOneBy({ id });
 
   return update;
 };
 
+
+export const listOneAvaliationService = async (id: string) => {
+  const avaliationRepository = AppDataSource.getRepository(Avaliation);
+  const avaliation = await avaliationRepository.findOne({
+    relations: { data_client_personal: true },
+    where: { id: id },
+  });
+
+  if (!avaliation) {
+    throw new AppError("Avaliation not found", 404);
+  }
+
+  return avaliation;
+}

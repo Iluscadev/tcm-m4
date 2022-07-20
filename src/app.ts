@@ -13,10 +13,10 @@ const app = express()
 
 app.use(express.json())
 
-app.use(clientsPersonalRoutes)
-app.use("/avaliations", avaliationRoutes)
-app.use(journalRoutes)
-app.use(addressRoutes)
+app.use("/user", clientsPersonalRoutes)
+app.use("/avaliation", avaliationRoutes)
+app.use("/journal", journalRoutes)
+app.use("/address", addressRoutes)
 app.use("/login", loginRoutes)
 
 app.use(handleAppErrorMiddleware)
