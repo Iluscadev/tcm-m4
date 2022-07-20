@@ -8,7 +8,12 @@ import { AppError } from "../../errors/AppError";
 export const ListAllService = async () => {
   const userRepository = AppDataSource.getRepository(DataClientPersonal);
 
-  const users = userRepository.find();
+  const users = userRepository.find({
+    relations: {
+      avaliations: true,
+      journals: true
+    }
+  });
 
   return users;
 };
@@ -82,6 +87,7 @@ export const createDataService = async ({
   data.checkout = checkout;
   data.lock_number = lock_number;
   data.addresses = [address];
+  data.avaliations = []
 
   //adionando ao DB
   userRepository.create(data);
