@@ -19,7 +19,6 @@ export const ListAllController = async (
       return response.status(400).json({
         error: error.name,
         message: error.message,
-
       });
     }
   }
@@ -58,7 +57,7 @@ export const createDataController = async (req: Request, res: Response) => {
       number,
       cep,
       town,
-      state
+      state,
     } = req.body;
     const newData = await createDataService({
       name,
@@ -75,7 +74,7 @@ export const createDataController = async (req: Request, res: Response) => {
       number,
       cep,
       town,
-      state
+      state,
     });
     return res.status(201).send(newData);
   } catch (err) {
@@ -99,6 +98,11 @@ export const updatePersonalController = async (req: Request, res: Response) => {
       checkin,
       checkout,
       lock_number,
+      street,
+      number,
+      cep,
+      town,
+      state,
     } = req.body;
     const personalUpdated = await updatePersonalService(id, {
       name,
@@ -111,6 +115,11 @@ export const updatePersonalController = async (req: Request, res: Response) => {
       checkin,
       checkout,
       lock_number,
+      street,
+      number,
+      cep,
+      town,
+      state,
     });
     return res.status(201).json({
       message: "User updated",
