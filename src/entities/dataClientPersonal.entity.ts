@@ -56,7 +56,9 @@ export class DataClientPersonal {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToMany(() => Address, (address) => address.data_client_personal)
+  @ManyToMany(() => Address, (address) => address.data_client_personal, {
+    eager: true,
+  })
   @JoinTable()
   addresses: Address[];
 
