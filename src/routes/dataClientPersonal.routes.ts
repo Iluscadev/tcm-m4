@@ -1,11 +1,32 @@
 import { Router } from "express";
-import { createDataController, ListAllController, userListOneController } from "../controllers/dataClientPersonal";
+import {
+  createDataController,
+  ListAllController,
+  softDeleteController,
+  updatePersonalController,
+  userListOneController,
+} from "../controllers/dataClientPersonal";
+import { AuthMiddleware } from "../middlewares/verifyAuth.middleware";
+import verifyUserIsAdmMiddleware from "../middlewares/verifyUserIsAdm.middleware";
 
-const clientsPersonalRoutes = Router()
+const clientsPersonalRoutes = Router();
 
-clientsPersonalRoutes.post('/register', createDataController);
+clientsPersonalRoutes.post("/register", createDataController);
 
-clientsPersonalRoutes.get('/users', ListAllController);
+clientsPersonalRoutes.get(
+  "/list",
+  AuthMiddleware,
+  ListAllController
+);
 
-clientsPersonalRoutes.get('/clients/:id', userListOneController);
-export default clientsPersonalRoutes
+clientsPersonalRoutes.get(
+  "/list/:id",
+  AuthMiddleware,
+  userListOneController
+);
+
+clientsPersonalRoutes.patch("/:id", AuthMiddleware, verifyUserIsAdmMiddleware, updatePersonalController);
+
+clientsPersonalRoutes.delete("/:id", AuthMiddleware, verifyUserIsAdmMiddleware, softDeleteController);
+
+export default clientsPersonalRoutes;

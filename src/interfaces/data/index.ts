@@ -34,5 +34,48 @@ export interface IDataResponse {
     age: string 
     plan: string
     status: boolean
-    lock_number: number
+}
+
+export interface IJournal{
+    id: string
+    exercise: string
+    time: string
+    repetitions: number
+}
+
+export interface IJournalCreate{
+    exercise: string
+    time: string
+    repetitions: number
+}
+
+export interface IAvaliationCreate{
+    wheight: number
+    height: number
+    neck: string
+    waist: number
+    bust: number
+    hip: number
+    arm_right: number
+    arm_left: number
+    leg_right: number
+    leg_left: number
+    cardio_freq: number
+    circumference: number
+    diameter: number
+}
+
+export interface IAvaliation extends IAvaliationCreate{
+    id: string
+    created_at: Date
+    updated_at: Date
+}
+
+export interface ICreateAddress {
+    street: string
+    number: string
+    cep: string
+    complement: string
+    town: string
+    state: string
 }

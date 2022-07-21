@@ -1,8 +1,9 @@
-import { DataClientPersonal } from "../../entities/dataClientPersonal.entities"
+import { DataClientPersonal } from "../../entities/dataClientPersonal.entity"
 import { IUserLogin } from "../../interfaces/data"
 import AppDataSource from "../../data-source"
 import { compare } from "bcryptjs"
 import jwt from "jsonwebtoken";
+import { AppError } from "../../errors/AppError";
 
 const userLoginService = async ({email, password}: IUserLogin) => {
 
@@ -16,13 +17,13 @@ const userLoginService = async ({email, password}: IUserLogin) => {
     })
 
     if (!account) {
-        throw new Error("Account not found")
+        throw new AppError("Account not found", 404)
     }
 
     const passwordMatch = await compare(password, account.password)
 
     if(!passwordMatch){
-        throw new Error("Wrong email/password")
+        throw new AppError("Wrong email/password", 403)
     } 
 
  

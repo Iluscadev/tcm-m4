@@ -6,8 +6,10 @@
   "author": "Helashow <lucas.bnlsp2013@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev src/app.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "dev": "ts-node-dev --files src/app.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
