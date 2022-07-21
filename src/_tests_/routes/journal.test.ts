@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm";
+/*import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
 import app from "../../app";
 import request from "supertest"
@@ -23,7 +23,7 @@ describe("Teste para metodo POST em /journal", () => {
       await connection.destroy();
     });
   
-    /*test("Tentando criar um Jounal", async () => {
+    test("Tentando criar um Jounal", async () => {
       const response = await request(app).post("/user/register").send(testUser);
   
       expect(response.status).toEqual(201);
@@ -31,7 +31,7 @@ describe("Teste para metodo POST em /journal", () => {
       expect(response.body.id.length).toEqual(36);
     
       
-    });*/
+    });
   
     test("Tentando criar um journal para um usuario não existente", async () => {
       const response = await request(app).post("/users").send(testUser);
@@ -40,4 +40,4 @@ describe("Teste para metodo POST em /journal", () => {
     
     });
   
-  });
+  });*/

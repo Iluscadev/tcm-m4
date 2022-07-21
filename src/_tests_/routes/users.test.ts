@@ -2,28 +2,36 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
 import app from "../../app";
 import request from "supertest"
+import { IDataRequest } from "../../interfaces/data";
+
+const testUser: IDataRequest = {
+  name: "Nami",
+  email: "Nami@gmail.com",
+  age: "26",
+  phone_number: "9819839189",
+  plan: "Familia",
+  checkin: "3 horas",
+  checkout: "2 horas",
+  lock_number: 2,
+  password: "Navegadora",
+  adm: false
+}
 
 
 describe("Teste para metodo POST em /user", () => {
     let connection: DataSource;
-    let testUser = {
-        name: "Monkey D. Luffy",
-        email: "luffy@email.com",
-        age: "22",
-        password: "ReidosPiratas",
-        phone_number: "912891821",
-        adm: true,
-        plan: "Sem Plano",
-        checkin: "3 Horas",
-        checkout: "5 horas",
-        lock_number: 2
-    };
-
-    let testJournal = {
-        exercise: "Esteira",
-        time: "10 min - Cardio - Leve",
-        repetitions: 1
-    };
+    /*let testUser = {
+      name: "Nami",
+      email: "Nami@gmail.com",
+      age: "26",
+      phone_number: "9819839189",
+      plan: "Familia",
+      checkin: "3 horas",
+      checkout: "2 horas",
+      lock_number: 2,
+      password: "Navegadora",
+      adm: false
+    };*/
   
     beforeAll(async () => {
       await AppDataSource.initialize()
@@ -55,11 +63,11 @@ describe("Teste para metodo POST em /user", () => {
       );
     });
   
-    test("Tentando criar um usuário com um email ja existente", async () => {
-      const response = await request(app).post("/users").send(testUser);
+    /*test("Tentando criar um usuário com um email ja existente", async () => {
+      const response = await request(app).post("/user/register").send(testUser);
   
-      expect(response.status).toEqual(404);
-    
-    });
+      expect(response.status).toEqual(400);
+      expect(response.body).toHaveProperty("message");
+    });*/
   
   });
