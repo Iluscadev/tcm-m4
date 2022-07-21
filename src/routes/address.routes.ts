@@ -4,6 +4,7 @@ import {
   createAddressController,
   listOneAddressController,
   updateAddressController,
+  deleteAddressController,
 } from "../controllers/addresses";
 import { AuthMiddleware } from "../middlewares/verifyAuth.middleware";
 import verifyUserIsAdmMiddleware from "../middlewares/verifyUserIsAdm.middleware";
@@ -26,6 +27,12 @@ addressRoutes.patch(
   AuthMiddleware,
   verifyUserIsAdmMiddleware,
   updateAddressController
+);
+addressRoutes.delete(
+  "/:id",
+  AuthMiddleware,
+  verifyUserIsAdmMiddleware,
+  deleteAddressController
 );
 
 export default addressRoutes;

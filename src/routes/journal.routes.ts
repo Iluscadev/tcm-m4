@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { journalCreateController, journalListController, journalListOneController, journalUpdateController } from "../controllers/journals";
+import { journalCreateController, journalDeleteController, journalListController, journalListOneController, journalUpdateController } from "../controllers/journals";
 import { AuthMiddleware } from "../middlewares/verifyAuth.middleware";
 import verifyUserIsAdmMiddleware from "../middlewares/verifyUserIsAdm.middleware";
 
@@ -12,5 +12,7 @@ journalRoutes.get('/list', AuthMiddleware, journalListController)
 journalRoutes.get('/list/:id', AuthMiddleware, journalListOneController)
 
 journalRoutes.patch('/:id', AuthMiddleware, verifyUserIsAdmMiddleware, journalUpdateController)
+
+journalRoutes.delete('/:id', AuthMiddleware, verifyUserIsAdmMiddleware, journalDeleteController)
 
 export default journalRoutes;
