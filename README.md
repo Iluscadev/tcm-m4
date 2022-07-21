@@ -333,3 +333,301 @@ Content-type: application/json
 | --------------- | --------------------------------- |
 | 401 Unathorized | Invalid token.                    |
 | 403 Forbidden   | Needs admin permission to access. |
+
+## 2. **Avaliations**
+
+### 2.1. **Criando Avaliação**
+
+### `/avaliations/:id`
+
+### Exemplo de Request:
+
+```
+POST /avaliations/36489681-bd4b-47c5-ad11-eaaef2e80b6d
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "wheight": 80,
+  "height": 180,
+  "neck": "35.6",
+  "waist": 693,
+  "bust": 36,
+  "hip": 833,
+  "arm_right": 333,
+  "arm_left": 332,
+  "leg_left": 500,
+  "leg_right": 504,
+  "cardio_freq": 80,
+  "circumference": 90,
+  "diameter": 45
+}
+```
+
+### Exemplo de Response:
+
+```
+201 CREATED
+```
+
+```json
+[
+  {
+    "message": "Avaliation created",
+    "avaliation": {
+      "wheight": 80,
+      "height": 180,
+      "neck": "35.6",
+      "waist": 693,
+      "bust": 36,
+      "hip": 833,
+      "arm_right": 333,
+      "arm_left": 332,
+      "leg_right": 504,
+      "leg_left": 500,
+      "cardio_freq": 80,
+      "circumference": 90,
+      "diameter": 45,
+      "created_at": "2022-07-21T00:00:37.306Z",
+      "updated_at": "2022-07-21T00:00:37.306Z",
+      "data_client_personal": [
+        {
+          "id": "36489681-bd4b-47c5-ad11-eaaef2e80b6d",
+          "name": "Alex",
+          "email": "alex@gmail.com",
+          "age": "28",
+          "password": "$2a$10$9PPZtwZf4kNoWaHVKuf0N.2QgU2HFfvtDDulrHsCGeuBUuK6T8KOi",
+          "phone_number": "9819839189",
+          "status": true,
+          "adm": true,
+          "plan": "Family",
+          "checkin": "3 horas",
+          "checkout": "2 horas",
+          "lock_number": 2,
+          "created_at": "2022-07-20T20:25:01.059Z",
+          "updated_at": "2022-07-20T20:25:01.059Z",
+          "addresses": [
+            {
+              "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+              "street": "Rua 007",
+              "number": "25",
+              "cep": "59695-000",
+              "complement": null,
+              "town": "Floripa",
+              "state": "SC"
+            }
+          ]
+        }
+      ],
+      "id": "11288fd9-5c1c-40b8-a6c9-66b95574f0fb"
+    }
+  }
+]
+```
+
+### 2.2. **Listando Avaliação**
+
+### `/avaliations/list`
+
+### Exemplo de Request:
+
+```
+GET /avaliations/list
+Host: http://localhost:3000
+Authorization:
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+	{
+		"id": "11288fd9-5c1c-40b8-a6c9-66b95574f0fb",
+		"wheight": 80,
+		"height": 180,
+		"neck": "35.6",
+		"waist": 693,
+		"bust": 36,
+		"hip": 833,
+		"arm_right": 333,
+		"arm_left": 332,
+		"leg_right": 504,
+		"leg_left": 500,
+		"cardio_freq": 80,
+		"circumference": 90,
+		"diameter": 45,
+		"created_at": "2022-07-21T00:00:37.306Z",
+		"updated_at": "2022-07-21T00:00:37.306Z",
+		"data_client_personal": [
+			{
+				"id": "36489681-bd4b-47c5-ad11-eaaef2e80b6d",
+				"name": "Alex",
+				"email": "alex@gmail.com",
+				"age": "28",
+				"password": "$2a$10$9PPZtwZf4kNoWaHVKuf0N.2QgU2HFfvtDDulrHsCGeuBUuK6T8KOi",
+				"phone_number": "9819839189",
+				"status": true,
+				"adm": true,
+				"plan": "Family",
+				"checkin": "3 horas",
+				"checkout": "2 horas",
+				"lock_number": 2,
+				"created_at": "2022-07-20T20:25:01.059Z",
+				"updated_at": "2022-07-20T20:25:01.059Z",
+				"addresses": [
+					{
+						"id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+						"street": "Rua 007",
+						"number": "25",
+						"cep": "59695-000",
+						"complement": null,
+						"town": "Floripa",
+						"state": "SC"
+					}
+				]
+			}
+		]
+	},
+```
+
+### 2.3. **Listando uma Avaliação Especifica**
+
+### `/avaliations/list/:id`
+
+```
+GET /avaliations/list/{{ _['base-Url'] }}/avaliations/list/36489681-bd4b-47c5-ad11-eaaef2e80b6d
+Host: http://localhost:3000
+Authorization:
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "11288fd9-5c1c-40b8-a6c9-66b95574f0fb",
+    "wheight": 80,
+    "height": 180,
+    "neck": "35.6",
+    "waist": 693,
+    "bust": 36,
+    "hip": 833,
+    "arm_right": 333,
+    "arm_left": 332,
+    "leg_right": 504,
+    "leg_left": 500,
+    "cardio_freq": 80,
+    "circumference": 90,
+    "diameter": 45,
+    "created_at": "2022-07-21T00:00:37.306Z",
+    "updated_at": "2022-07-21T00:00:37.306Z",
+    "data_client_personal": [
+      {
+        "id": "36489681-bd4b-47c5-ad11-eaaef2e80b6d",
+        "name": "Alex",
+        "email": "alex@gmail.com",
+        "age": "28",
+        "password": "$2a$10$9PPZtwZf4kNoWaHVKuf0N.2QgU2HFfvtDDulrHsCGeuBUuK6T8KOi",
+        "phone_number": "9819839189",
+        "status": true,
+        "adm": true,
+        "plan": "Family",
+        "checkin": "3 horas",
+        "checkout": "2 horas",
+        "lock_number": 2,
+        "created_at": "2022-07-20T20:25:01.059Z",
+        "updated_at": "2022-07-20T20:25:01.059Z",
+        "addresses": [
+          {
+            "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+            "street": "Rua 007",
+            "number": "25",
+            "cep": "59695-000",
+            "complement": null,
+            "town": "Floripa",
+            "state": "SC"
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+### 2.2. **Atualizando Avaliação**
+
+### `/avaliations/:id`
+
+### Exemplo de Request:
+
+```
+GET /avaliations/11288fd9-5c1c-40b8-a6c9-66b95574f0fb
+Host: http://localhost:3000
+Authorization:
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "height": 200
+}
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "message": "Avaliation Updated",
+  "updated_avaliation": {
+    "id": "11288fd9-5c1c-40b8-a6c9-66b95574f0fb",
+    "wheight": 80,
+    "height": 200,
+    "neck": "35.6",
+    "waist": 693,
+    "bust": 36,
+    "hip": 833,
+    "arm_right": 333,
+    "arm_left": 332,
+    "leg_right": 504,
+    "leg_left": 500,
+    "cardio_freq": 80,
+    "circumference": 90,
+    "diameter": 45,
+    "created_at": "2022-07-21T00:00:37.306Z",
+    "updated_at": "2022-07-21T01:07:47.000Z"
+  }
+}
+```
