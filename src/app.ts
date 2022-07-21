@@ -21,4 +21,8 @@ app.use("/login", loginRoutes)
 
 app.use(handleAppErrorMiddleware)
 
+app.listen(3000, () =>{
+    console.log("Server running..")
+})
+
 export default app

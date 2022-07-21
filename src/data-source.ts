@@ -8,10 +8,14 @@ const AppDataSource = new DataSource(
     ssl: process.env.NODE_ENV === "production" ? {rejectUnauthorized: false} : false,
     logging: true,
     synchronize: false,
-    entities: process.env.NODE_ENV === "production" ? ['dist/entities/*.js'] : ['src/entities/*.ts'],
-    migrations: process.env.NODE_ENV === "production" ? ['dist/migrations/*.js'] : ['src/migrations/*.ts']
+    entities: process.env.NODE_ENV === "production" ? ['dist/src/entities/*.js'] : ['src/entities/*.ts'],
+    migrations: process.env.NODE_ENV === "production" ? ['dist/src/migrations/*.js'] : ['src/migrations/*.ts']
   }
 
 );
+
+AppDataSource.initialize().then(() => {console.log("Data Source Initialized")}).catch((error) => {
+  console.log("Error during Data Source Initialization", error)
+})
 
 export default AppDataSource
