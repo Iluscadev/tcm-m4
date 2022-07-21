@@ -79,3 +79,20 @@ export const updateAddressService = async (
 
   return updatedAddress;
 };
+
+export const deleteAddressService = async (id: string) => {
+  const addressRepository = AppDataSource.getRepository(Address)
+  const address = await addressRepository.findOneBy({id})
+
+  if(!address){
+    throw new AppError("Address not found", 404)
+  }
+
+  if(!address.status){
+    throw new AppError("Inactive address")
+  }
+
+  address.status = false
+
+  await addressRepository.save(address)
+}

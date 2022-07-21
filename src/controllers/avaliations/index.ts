@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {createAvaliationService, listAvaliationService, listOneAvaliationService, updateAvaliationService} from "../../services/avaliations";
+import {createAvaliationService, deleteAvaliationService, listAvaliationService, listOneAvaliationService, updateAvaliationService} from "../../services/avaliations";
 
 export const createAvaliationController = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -93,4 +93,11 @@ export const listOneAvaliationController = async (req: Request, res: Response) =
   const avaliation = await listOneAvaliationService(id);
 
   return res.status(200).json(avaliation);
+}
+
+export const deleteAvaliationController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  await deleteAvaliationService(id)
+
+  return res.status(204).send()
 }

@@ -133,3 +133,20 @@ export const listOneAvaliationService = async (id: string) => {
 
   return avaliation;
 }
+
+export const deleteAvaliationService = async (id: string) => {
+  const avaliationRepository = AppDataSource.getRepository(Avaliation)
+  const avaliation = await avaliationRepository.findOneBy({id})
+
+  if(!avaliation){
+    throw new AppError("Avaliation not found", 404)
+  }
+
+  if(!avaliation.status){
+    throw new AppError("Inactive avaliation")
+  }
+
+  avaliation.status = false
+
+  await avaliationRepository.save(avaliation)
+}

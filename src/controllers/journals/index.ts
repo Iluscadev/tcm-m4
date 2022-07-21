@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IJournal } from "../../interfaces/data";
-import { journalCreateService, journalListOneService, journalListService, journalUpdateService } from "../../services/journals";
+import { journalCreateService, journalDeleteService, journalListOneService, journalListService, journalUpdateService } from "../../services/journals";
 
 
 export const journalCreateController = async (req: Request, res: Response) => {
@@ -32,8 +32,15 @@ export const journalUpdateController = async  (req: Request, res: Response) => {
 }
 
 export const journalListOneController = async (req: Request, res: Response) => {
-const { id } = req.params;
-  const address = await journalListOneService(id);
+    const { id } = req.params;
+    const address = await journalListOneService(id);
 
-  return res.status(200).json(address);
+    return res.status(200).json(address);
+}
+
+export const journalDeleteController = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await journalDeleteService(id)
+
+    return res.status(204).send()
 }

@@ -92,3 +92,20 @@ export const journalListOneService = async (id: string) => {
   
     return journal;
 }
+
+export const journalDeleteService = async (id: string) => {
+    const journalRepository = AppDataSource.getRepository(Journal)
+    const journal = await journalRepository.findOneBy({id})
+
+    if(!journal){
+        throw new AppError("Journal not found", 404)
+    }
+
+    if(!journal.status){
+        throw new AppError("Inactive journal")
+    }
+
+    journal.status = false
+
+    await journalRepository.save(journal)
+}

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   createAddressService,
+  deleteAddressService,
   listAddressService,
   listOneAddressService,
   updateAddressService,
@@ -48,3 +49,10 @@ export const updateAddressController = async (req: Request, res: Response) => {
     updated_address: updatedAddress
   })
 };
+
+export const deleteAddressController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  await deleteAddressService(id)
+
+  return res.status(204).send()
+}
