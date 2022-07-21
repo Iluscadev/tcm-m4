@@ -631,3 +631,171 @@ Content-type: application/json
   }
 }
 ```
+
+## 3. **Endereço**
+
+### 3.1. **Adicionando endereço**
+
+### `/:id`
+
+### Exemplo de Request:
+
+```
+GET /11288fd9-5c1c-40b8-a6c9-66b95574f0fb
+Host: http://localhost:3000
+Authorization:
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+              "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+              "street": "Rua 007",
+              "number": "25",
+              "cep": "59695-000",
+              "complement": null,
+              "town": "Floripa",
+              "state": "SC"
+            }
+```
+### Exemplo de Response:
+
+```
+201 OK
+```
+
+```json
+{
+  "message": "Address created",
+  "address":  {
+            "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+            "street": "Rua 007",
+            "number": "25",
+            "cep": "59695-000",
+            "complement": null,
+            "town": "Floripa",
+            "state": "SC"
+          }
+}
+```
+#3.2 **Lista de endereços**
+
+### `/list`
+
+### Exemplo de Request:
+
+```
+GET /list
+Host: http://localhost:3000
+Authorization:
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+```
+
+#3.3 **Listando endereço específico**
+
+### `/list/:id`
+
+### Exemplo de Request:
+
+```
+GET /list/:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+#3.4 **Atualizando endereço específico**
+
+### `/:id`
+
+```
+PATCH /:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+            "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+            "street": "Rua 007",
+            "number": "25",
+            "cep": "59695-000",
+            "complement": null,
+            "town": "Floripa",
+            "state": "SC"
+          }
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+```json
+{
+  "message": "Address updated",
+  "address":  {
+            "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+            "street": "Rua 007",
+            "number": "25",
+            "cep": "59695-000",
+            "complement": null,
+            "town": "Floripa",
+            "state": "SC"
+          }
+}
+```
+#3.5 **Apagando endereço específico**
+
+### `/:id`
+
+```
+DELETE /list/:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 OK
+```
+
