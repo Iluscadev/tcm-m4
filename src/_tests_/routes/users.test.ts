@@ -63,11 +63,11 @@ describe("Teste para metodo POST em /user", () => {
       );
     });
   
-    /*test("Tentando criar um usuário com um email ja existente", async () => {
+    test("Tentando criar um usuário com um email ja existente", async () => {
       const response = await request(app).post("/user/register").send(testUser);
   
       expect(response.status).toEqual(400);
       expect(response.body).toHaveProperty("message");
-    });*/
+    });
   
   });
