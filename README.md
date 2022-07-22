@@ -636,7 +636,7 @@ Content-type: application/json
 
 ### 3.1. **Adicionando endereço**
 
-### `/:id`
+### `address/:id`
 
 ### Exemplo de Request:
 
@@ -682,12 +682,12 @@ Content-type: application/json
 ```
 #3.2 **Lista de endereços**
 
-### `/list`
+### `address/list`
 
 ### Exemplo de Request:
 
 ```
-GET /list
+GET address/list
 Host: http://localhost:3000
 Authorization:
 Content-type: application/json
@@ -710,12 +710,12 @@ Vazio
 
 #3.3 **Listando endereço específico**
 
-### `/list/:id`
+### `address/list/:id`
 
 ### Exemplo de Request:
 
 ```
-GET /list/:id
+GET address/list/:id
 Host: http://localhost:3000
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
 Content-type: application/json
@@ -735,7 +735,7 @@ Vazio
 
 #3.4 **Atualizando endereço específico**
 
-### `/:id`
+### `address/:id`
 
 ```
 PATCH /:id
@@ -779,7 +779,7 @@ Content-type: application/json
 ```
 #3.5 **Apagando endereço específico**
 
-### `/:id`
+### `address/:id`
 
 ```
 DELETE /list/:id
@@ -799,3 +799,138 @@ Vazio
 204 OK
 ```
 
+#4 **Diário(Journal)**
+
+### `address/:id`
+
+```
+POST /address/:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+### Corpo da Requisição:
+
+```json
+	{
+        "exercise": "flexão",
+    	"time":"",
+    	"repetitions":"12"
+          }
+```
+### Exemplo de Response:
+
+```
+201 OK
+	{
+        "id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+        "exercise": "flexão",
+    	"time":"",
+    	"repetitions":"12"
+          }
+```
+
+#4.1 **Lista dos diários**
+
+### `address/list`
+
+```
+GET /address/list
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```json
+
+```
+#4.2 **Lista de diário específico**
+
+###`address/list/:id`
+
+```
+GET /address/list/:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```json
+
+```
+
+#4.3 **Atualizando diário específico**
+
+###`address/:id`
+
+```
+PATCH /address/list/:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+	{
+        "exercise": "flexão",
+    	"time":"",
+    	"repetitions":"12"
+        }
+```
+
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+```json
+{
+  "message": "journal Update",
+  "journal":  {
+         	"id": "92905f3b-5d5d-4400-a615-fbe0677f3cc6",
+        	 "exercise": "flexão",
+    		"time":"",
+    		"repetitions":"12"
+          	}
+}
+```
+
+#4.3 **Deletando diário específico**
+
+###`address/:id`
+
+```
+DELETE /address/list/:id
+Host: http://localhost:3000
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlNTlkMmQ2LTg5MmUtNGE5OC1iNjJjLWJiM2RkZWVmYWM4MiIsImFkbSI6ZmFsc2UsImlhdCI6MTY1ODM1MTk2MiwiZXhwIjoxNjU4MzU1NTYyfQ._S5WW_T4kDMnVTLjESv2GqQgjO21pNBW9O2dxejWXFM
+Content-type: application/json
+```
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 OK
+```
